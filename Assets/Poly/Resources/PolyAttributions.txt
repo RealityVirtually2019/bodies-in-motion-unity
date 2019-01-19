@@ -24,8 +24,20 @@ URL: https://poly.google.com/view/2MuP7YuBpYq
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: normal clouds -palch
+Author: Zachary Phillips
+URL: https://poly.google.com/view/0gPmrXUs6-D
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Tree
 Author: Chris Tarello
 URL: https://poly.google.com/view/3d7CBTkBsyo
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Waterfall scene
+Author: Nikki Morin
+URL: https://poly.google.com/view/dkbjOPcyB2l
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
