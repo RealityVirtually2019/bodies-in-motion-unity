@@ -50,6 +50,11 @@ public class AJAXServer : MonoBehaviour
         Debug.Log("Got stuff: " + e.Message.RawMessage);
     }
 
+    private void OnDestroy()
+    {
+        client.Close();
+    }
+
     // Update is called once per frame
     void Update()
     {
