@@ -6,6 +6,7 @@ public class PoseSelector : MonoBehaviour
 {
     public GameObject[] poseThings;
     public float poseChangeInteral = 10f;
+    public int currentPose=0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,13 @@ public class PoseSelector : MonoBehaviour
     }
 
     float lastCallTime = -10;
-    int ctr = 0;
     private void Update()
     {
         if (Time.time - lastCallTime > poseChangeInteral)
         {
-            SetPose(ctr);
-            ctr++;
-            ctr = ctr % 4;
+            SetPose(currentPose);
+            currentPose++;
+            currentPose = currentPose % 4;
             lastCallTime = Time.time;
         }
     }
