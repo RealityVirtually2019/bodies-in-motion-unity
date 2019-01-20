@@ -5,16 +5,36 @@ using UnityEngine.Networking;
 using System.Net;
 using System.Net.Sockets;
 using SocketIOClient;
+using SimpleJSON;
 
 public class AJAXServer : MonoBehaviour
 {
-    //Socket test = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+    public Transform[] bodyPoints = new Transform[17];
+    private Vector3[] bodyPointPos = new Vector3[17];
+    private bool[] pointAvaiable = new bool[17];
 
-    Client client = new Client("http://localhost:5555");
+    public string ipAddres = "localhost";
+    public int port = 5555;
+
+    private Client client;
     
     // Start is called before the first frame update
     void Start()
     {
+
+        for (int i = 0; i < 17; i++)
+        {
+            if (bodyPoints[i] != null)
+            {
+                bodyPointPos[i] = bodyPoints[i].localPosition;
+                pointAvaiable[i] = true;
+            } else
+            {
+                pointAvaiable[i] = false;
+            }
+        }
+
+        client = new Client("http://" + ipAddres + ":" + port);
 
         client.Opened += SocketOpened;
         client.Message += Message;
@@ -22,10 +42,6 @@ public class AJAXServer : MonoBehaviour
         client.Error += SocketError;
 
         client.Connect();
-       
-        /* Debug.Log("Establishing Connection to thing");
-        test.Connect("localhost", 5555);
-        Debug.Log("Connection established");*/
         
     }
 
@@ -47,26 +63,47 @@ public class AJAXServer : MonoBehaviour
 
     void Message(object sender, MessageEventArgs e)
     {
-        Debug.Log("Got stuff: " + e.Message.RawMessage);
+        //Debug.Log("Got Stuff: " + e.ToString());
+        //Debug.Log("Got stuff: " + e.Message.MessageText);
+        if (e.Message.MessageText != null)
+        {
+            JSONNode json = JSON.Parse(e.Message.MessageText);
+
+            JSONArray args1 = json["args"].AsArray;
+            JSONArray args = args1[0].AsArray;
+            int argsCount = args.Count;
+
+            for (int i = 0; i < 17; i++)
+            {
+                if (pointAvaiable[i])
+                {
+                    JSONObject poseObj = args[i].AsObject;
+                    JSONObject pos = poseObj["position"].AsObject;
+
+                    bodyPointPos[i].x = pos["x"].AsFloat;
+                    bodyPointPos[i].y = pos["y"].AsFloat;
+                }
+                
+            }
+        }
+        
     }
 
     private void OnDestroy()
     {
         client.Close();
+        client.Dispose();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (test.Available > 0)
+        for (int i = 0; i < 17; i++)
         {
-            byte[] buffer = new byte[test.Available];
-
-            test.Receive(buffer);
-
-            Debug.Log(buffer);
+            if (pointAvaiable[i])
+            {
+                bodyPoints[i].localPosition = bodyPointPos[i];
+            }
         }
-        */
     }
 }
