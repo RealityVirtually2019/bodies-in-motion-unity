@@ -20,15 +20,15 @@ public class ReferenceSwivel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 rot = camera.rotation.eulerAngles;
-        rot.x = 0;
-        rot.z = 0;
-        Quaternion quatRot = new Quaternion();
-        quatRot.eulerAngles = rot;
+        //Vector3 rot = camera.rotation.eulerAngles;
+        //rot.x = 0;
+        //rot.z = 0;
+        //Quaternion quatRot = new Quaternion();
+        //quatRot.eulerAngles = rot;
 
-        Quaternion currentRot = transform.rotation;
+        //Quaternion currentRot = transform.rotation;
 
-        Quaternion newRot = Quaternion.RotateTowards(currentRot, quatRot, .5f);
-        transform.rotation = newRot;
+        //Quaternion newRot = Quaternion.RotateTowards(currentRot, quatRot, .5f);
+        //transform.rotation = newRot;
     }
 }
