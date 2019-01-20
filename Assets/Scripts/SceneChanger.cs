@@ -10,7 +10,7 @@ public class SceneChanger : MonoBehaviour
     Light sunlight;
     Transform[] bodyPoints;
     float lastUpdateTime;
-    float maxScoreCutoff = 10f;
+    float maxScoreCutoff = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +22,11 @@ public class SceneChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - lastUpdateTime > 1f)
+        if (Time.time - lastUpdateTime > 0.2f)
         {
             float score = Utilities.SimilarityScore(modelHandsUp, bodyPoints);
+            score = Mathf.Max(score - 11.5f, 0);
+            Debug.Log(score);
             float fireEffectSize = Mathf.Max(1f - score * 0.7f / maxScoreCutoff, 0.3f);
             fireEffect.localScale = new Vector3(fireEffectSize, fireEffectSize, fireEffectSize);
             float lightIntensity = Mathf.Max(2.4f - score * 2.4f / maxScoreCutoff, 0.01f);
