@@ -17,7 +17,18 @@ public class Utilities
             if (obj1[i] != null && obj2[i] != null)
             {
                 Vector3 dif = obj1[i].position - obj2[i].position;
-                score += Mathf.Sqrt(dif[0] * dif[0] + dif[1] * dif[1] + dif[2] * dif[2]);
+                float delta = Mathf.Sqrt(dif[0] * dif[0] + dif[1] * dif[1] + dif[2] * dif[2]);
+                score += delta;
+
+                float deltaMin = 0.3f;
+                float deltaMax = 1.3f;
+                deltaMax -= deltaMin;
+                delta = Mathf.Max(delta - 0.3f, 0);
+                delta = Mathf.Min(delta, deltaMax);
+                float R = 0.89f / deltaMax * delta;
+                float G = 0.27f / deltaMax * delta;
+                float B = 1 - 0.47f / deltaMax * delta;
+                obj2[i].GetComponent<Renderer>().material.color = new Color(R, G, B);
             }
         }
         return score;
