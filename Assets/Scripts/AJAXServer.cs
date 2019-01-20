@@ -9,7 +9,9 @@ using SimpleJSON;
 
 public class AJAXServer : MonoBehaviour
 {
-       
+    public Transform[] bodyPoints = new Transform[17];
+    public Vector3[] bodyPointPos = new Vector3[17];
+    public bool[] pointAvaiable = new bool[17];
 
     Client client = new Client("http://localhost:5555");
     
@@ -17,7 +19,17 @@ public class AJAXServer : MonoBehaviour
     void Start()
     {
 
-
+        for (int i = 0; i < 17; i++)
+        {
+            if (bodyPoints[i] != null)
+            {
+                bodyPointPos[i] = bodyPoints[i].localPosition;
+                pointAvaiable[i] = true;
+            } else
+            {
+                pointAvaiable[i] = false;
+            }
+        }
 
         client.Opened += SocketOpened;
         client.Message += Message;
@@ -55,11 +67,21 @@ public class AJAXServer : MonoBehaviour
             JSONArray args1 = json["args"].AsArray;
             JSONArray args = args1[0].AsArray;
             int argsCount = args.Count;
+
+            for (int i = 0; i < 17; i++)
+            {
+                if (pointAvaiable[i])
+                {
+                    JSONObject poseObj = args[i].AsObject;
+                    JSONObject pos = poseObj["position"].AsObject;
+
+                    bodyPointPos[i].x = pos["x"].AsFloat;
+                    bodyPointPos[i].y = pos["y"].AsFloat;
+                }
+                
+            }
         }
         
-        //e.Message.Json.GetFirstArgAs
-        //PoseInfoMessage poseInfo = JsonUtility.FromJson<PoseInfoMessage>(e.Message.MessageText);
-        //object[] args = (object[])(e.Message.Json.args[0]);
     }
 
     private void OnDestroy()
@@ -71,15 +93,12 @@ public class AJAXServer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (test.Available > 0)
+        for (int i = 0; i < 17; i++)
         {
-            byte[] buffer = new byte[test.Available];
-
-            test.Receive(buffer);
-
-            Debug.Log(buffer);
+            if (pointAvaiable[i])
+            {
+                bodyPoints[i].localPosition = bodyPointPos[i];
+            }
         }
-        */
     }
 }
