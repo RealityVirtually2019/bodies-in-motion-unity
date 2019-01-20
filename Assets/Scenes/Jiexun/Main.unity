@@ -5613,7 +5613,7 @@ PrefabInstance:
     - target: {fileID: 7760804400002131607, guid: 177c882c92e7a464eb616552e07d2220,
         type: 3}
       propertyPath: ipAddres
-      value: 10.189.11.130
+      value: localhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 177c882c92e7a464eb616552e07d2220, type: 3}
