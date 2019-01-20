@@ -10,10 +10,13 @@ using SimpleJSON;
 public class AJAXServer : MonoBehaviour
 {
     public Transform[] bodyPoints = new Transform[17];
-    public Vector3[] bodyPointPos = new Vector3[17];
-    public bool[] pointAvaiable = new bool[17];
+    private Vector3[] bodyPointPos = new Vector3[17];
+    private bool[] pointAvaiable = new bool[17];
 
-    Client client = new Client("http://localhost:5555");
+    public string ipAddres = "localhost";
+    public int port = 5555;
+
+    private Client client;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,8 @@ public class AJAXServer : MonoBehaviour
                 pointAvaiable[i] = false;
             }
         }
+
+        client = new Client("http://" + ipAddres + ":" + port);
 
         client.Opened += SocketOpened;
         client.Message += Message;
@@ -59,7 +64,7 @@ public class AJAXServer : MonoBehaviour
     void Message(object sender, MessageEventArgs e)
     {
         //Debug.Log("Got Stuff: " + e.ToString());
-        Debug.Log("Got stuff: " + e.Message.MessageText);
+        //Debug.Log("Got stuff: " + e.Message.MessageText);
         if (e.Message.MessageText != null)
         {
             JSONNode json = JSON.Parse(e.Message.MessageText);
