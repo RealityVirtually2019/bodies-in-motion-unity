@@ -5,10 +5,11 @@ using UnityEngine.Networking;
 using System.Net;
 using System.Net.Sockets;
 using SocketIOClient;
+using SimpleJSON;
 
 public class AJAXServer : MonoBehaviour
 {
-    //Socket test = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+       
 
     Client client = new Client("http://localhost:5555");
     
@@ -16,16 +17,14 @@ public class AJAXServer : MonoBehaviour
     void Start()
     {
 
+
+
         client.Opened += SocketOpened;
         client.Message += Message;
         client.SocketConnectionClosed += SocketDisconnect;
         client.Error += SocketError;
 
         client.Connect();
-       
-        /* Debug.Log("Establishing Connection to thing");
-        test.Connect("localhost", 5555);
-        Debug.Log("Connection established");*/
         
     }
 
@@ -47,12 +46,26 @@ public class AJAXServer : MonoBehaviour
 
     void Message(object sender, MessageEventArgs e)
     {
-        Debug.Log("Got stuff: " + e.Message.RawMessage);
+        //Debug.Log("Got Stuff: " + e.ToString());
+        Debug.Log("Got stuff: " + e.Message.MessageText);
+        if (e.Message.MessageText != null)
+        {
+            JSONNode json = JSON.Parse(e.Message.MessageText);
+
+            JSONArray args1 = json["args"].AsArray;
+            JSONArray args = args1[0].AsArray;
+            int argsCount = args.Count;
+        }
+        
+        //e.Message.Json.GetFirstArgAs
+        //PoseInfoMessage poseInfo = JsonUtility.FromJson<PoseInfoMessage>(e.Message.MessageText);
+        //object[] args = (object[])(e.Message.Json.args[0]);
     }
 
     private void OnDestroy()
     {
         client.Close();
+        client.Dispose();
     }
 
     // Update is called once per frame
