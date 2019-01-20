@@ -18,7 +18,7 @@ public class PoseSelector : MonoBehaviour
                 poseThings[i].SetActive(false);
             }
 
-            poseThings[0].SetActive(true);
+            poseThings[currentPose].SetActive(true);
         }
     }
 

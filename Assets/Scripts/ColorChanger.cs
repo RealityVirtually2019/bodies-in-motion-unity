@@ -17,6 +17,7 @@ public class ColorChanger : MonoBehaviour
     void Start()
     {
         bodyPoints = GameObject.Find("PoseFollower").GetComponent<AJAXServer>().bodyPoints;
+        lastUpdateTime = -10f;
     }
 
     // Update is called once per frame
