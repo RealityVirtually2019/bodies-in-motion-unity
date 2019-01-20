@@ -20,8 +20,12 @@ public class Utilities
                 float delta = Mathf.Sqrt(dif[0] * dif[0] + dif[1] * dif[1] + dif[2] * dif[2]);
                 score += delta;
 
-                float deltaMin = 0.75f;
-                float deltaRange = 0.4f;
+                float deltaMin = 0.2f;
+                float deltaRange = 1f;
+                if (i == 0)
+                {
+                    Debug.Log(delta);
+                }
                 delta = Mathf.Max(delta - deltaMin, 0);
                 delta = Mathf.Min(delta, deltaRange);
                 float R = 0.89f / deltaRange * delta;
