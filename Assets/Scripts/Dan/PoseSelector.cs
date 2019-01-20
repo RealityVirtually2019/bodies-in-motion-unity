@@ -6,6 +6,8 @@ public class PoseSelector : MonoBehaviour
 {
     public GameObject[] poseThings;
 
+    private int activePose = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +26,16 @@ public class PoseSelector : MonoBehaviour
     {
         if (poseNum <= poseThings.Length-1)
         {
-            for (int i = 0; i < poseThings.Length; i++)
-            {
-                poseThings[i].SetActive(false);
-            }
+            
+            poseThings[activePose].SetActive(false);
 
+            activePose = poseNum;
             poseThings[poseNum].SetActive(true);
         }
+    }
+
+    public GameObject GetActivePose()
+    {
+        return poseThings[activePose];
     }
 }
