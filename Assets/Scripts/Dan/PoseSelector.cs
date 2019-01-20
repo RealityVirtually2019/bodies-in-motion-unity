@@ -53,38 +53,38 @@ public class PoseSelector : MonoBehaviour
     private IEnumerator selectPoseThing(int poseNum, float v)
     {
         poseThings[poseNum].SetActive(true);
-        Vector3 pos = poseThings[poseNum].transform.position;
+        Vector3 pos = poseThings[poseNum].transform.localPosition;
         pos.y = -3f;
-        poseThings[poseNum].transform.position = pos;
+        poseThings[poseNum].transform.localPosition = pos;
         float step = (v / 5.88f) * Time.fixedDeltaTime;
         float t = 0;
         while (t <= 1.0f)
         {
             t += step;
             pos.y = pos.y + v * Time.deltaTime;
-            poseThings[poseNum].transform.position = pos;
+            poseThings[poseNum].transform.localPosition = pos;
             yield return new WaitForFixedUpdate();
         }
         pos.y = 2.88f;
-        poseThings[poseNum].transform.position = pos;
+        poseThings[poseNum].transform.localPosition = pos;
     }
 
     private IEnumerator unselectPoseThing(int poseNum, float v)
     {
-        Vector3 pos = poseThings[poseNum].transform.position;
+        Vector3 pos = poseThings[poseNum].transform.localPosition;
         pos.y = 2.88f;
-        poseThings[poseNum].transform.position = pos;
+        poseThings[poseNum].transform.localPosition = pos;
         float step = (v / 5.88f) * Time.fixedDeltaTime;
         float t = 0;
         while (t <= 1.0f)
         {
             t += step;
             pos.y = pos.y - v * Time.deltaTime;
-            poseThings[poseNum].transform.position = pos;
+            poseThings[poseNum].transform.localPosition = pos;
             yield return new WaitForFixedUpdate();
         }
         pos.y = -3f;
-        poseThings[poseNum].transform.position = pos;
+        poseThings[poseNum].transform.localPosition = pos;
         poseThings[poseNum].SetActive(false);
     }
 }
