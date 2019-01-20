@@ -28,7 +28,7 @@ public class Utilities
                 float R = 0.89f / deltaMax * delta;
                 float G = 0.27f / deltaMax * delta;
                 float B = 1 - 0.47f / deltaMax * delta;
-                obj2[i].GetComponent<Renderer>().material.color = new Color(R, G, B);
+                obj1[i].GetComponent<Renderer>().material.color = new Color(R, G, B);
             }
         }
         return score;
