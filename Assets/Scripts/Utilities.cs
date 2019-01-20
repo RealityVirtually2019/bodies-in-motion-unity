@@ -20,14 +20,13 @@ public class Utilities
                 float delta = Mathf.Sqrt(dif[0] * dif[0] + dif[1] * dif[1] + dif[2] * dif[2]);
                 score += delta;
 
-                float deltaMin = 0.3f;
-                float deltaMax = 1.3f;
-                deltaMax -= deltaMin;
-                delta = Mathf.Max(delta - 0.3f, 0);
-                delta = Mathf.Min(delta, deltaMax);
-                float R = 0.89f / deltaMax * delta;
-                float G = 0.27f / deltaMax * delta;
-                float B = 1 - 0.47f / deltaMax * delta;
+                float deltaMin = 0.75f;
+                float deltaRange = 0.4f;
+                delta = Mathf.Max(delta - deltaMin, 0);
+                delta = Mathf.Min(delta, deltaRange);
+                float R = 0.89f / deltaRange * delta;
+                float G = 0.27f / deltaRange * delta;
+                float B = 1 - 0.47f / deltaRange * delta;
                 obj1[i].GetComponent<Renderer>().material.color = new Color(R, G, B);
             }
         }
